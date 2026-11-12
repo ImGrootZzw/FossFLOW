@@ -52,22 +52,33 @@ if %NODE_MAJOR% LSS 24 (
 )
 
 REM ---------- 2. Install dependencies ----------
-if not exist "node_modules" (
-    echo [....] Installing dependencies - first run, this can take a few minutes...
+set "NEEDS_INSTALL=0"
+if not exist "node_modules" set "NEEDS_INSTALL=1"
+if "%NEEDS_INSTALL%"=="1" goto :run_install
+
+REM Reinstall when package-lock.json is newer than the last install
+node -e "const fs=require('fs');try{const a=fs.statSync('package-lock.json').mtimeMs;const b=fs.statSync('node_modules/.package-lock.json').mtimeMs;process.exit(a>b?1:0)}catch(e){process.exit(1)}"
+if errorlevel 1 set "NEEDS_INSTALL=1"
+if "%NEEDS_INSTALL%"=="1" goto :run_install
+
+echo [OK] Dependencies already installed.
+goto :after_install
+
+:run_install
+echo [....] Installing dependencies - this can take a few minutes...
+echo.
+call npm install
+if errorlevel 1 (
     echo.
-    call npm install
-    if errorlevel 1 (
-        echo.
-        echo [ERROR] npm install failed. Check the output above,
-        echo         then fix the issue and run this script again.
-        pause
-        exit /b 1
-    )
-    echo.
-    echo [OK] Dependencies installed.
-) else (
-    echo [OK] Dependencies already installed.
+    echo [ERROR] npm install failed. Check the output above,
+    echo         then fix the issue and run this script again.
+    pause
+    exit /b 1
 )
+echo.
+echo [OK] Dependencies installed.
+
+:after_install
 
 REM ---------- 3. Build the library ----------
 if not exist "packages\fossflow-lib\dist" (
