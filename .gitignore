@@ -25,3 +25,6 @@ overlay/
 
 # generated from icon-packs/ by scripts/generate-icon-packs.mjs (large, rebuildable)
 packages/fossflow-app/public/icon-packs.generated.json
+
+# local git backups created during migration
+.git.old.*
