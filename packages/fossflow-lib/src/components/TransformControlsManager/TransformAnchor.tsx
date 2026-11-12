@@ -18,6 +18,7 @@ export const TransformAnchor = ({ position, onMouseDown }: Props) => {
 
   return (
     <Box
+      data-transform-anchor="true"
       onMouseOver={() => {
         setIsHovered(true);
       }}

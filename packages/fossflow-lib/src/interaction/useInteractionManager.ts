@@ -13,6 +13,7 @@ import { Cursor } from './modes/Cursor';
 import { DragItems } from './modes/DragItems';
 import { DrawRectangle } from './modes/Rectangle/DrawRectangle';
 import { TransformRectangle } from './modes/Rectangle/TransformRectangle';
+import { TransformNode } from './modes/NodeTransform';
 import { Connector } from './modes/Connector';
 import { Pan } from './modes/Pan';
 import { PlaceIcon } from './modes/PlaceIcon';
@@ -73,6 +74,7 @@ const modes: { [k in string]: ModeActions } = {
   DRAG_ITEMS: DragItems,
   'RECTANGLE.DRAW': DrawRectangle,
   'RECTANGLE.TRANSFORM': TransformRectangle,
+  'NODE.TRANSFORM': TransformNode,
   CONNECTOR: Connector,
   PAN: Pan,
   PLACE_ICON: PlaceIcon,

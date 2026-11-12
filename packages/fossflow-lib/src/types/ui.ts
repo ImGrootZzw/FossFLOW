@@ -99,6 +99,17 @@ export interface TransformRectangleMode {
   selectedAnchor: AnchorPosition | null;
 }
 
+export interface TransformNodeMode {
+  type: 'NODE.TRANSFORM';
+  showCursor: boolean;
+  id: string;
+  selectedAnchor: AnchorPosition | null;
+  /** Tile under the cursor when the drag started */
+  startTile?: Coords;
+  /** Node tile when the drag started */
+  originTile?: Coords;
+}
+
 export interface TextBoxMode {
   type: 'TEXTBOX';
   showCursor: boolean;
@@ -135,6 +146,7 @@ export type Mode =
   | ConnectorMode
   | DrawRectangleMode
   | TransformRectangleMode
+  | TransformNodeMode
   | DragItemsMode
   | TextBoxMode
   | LassoMode

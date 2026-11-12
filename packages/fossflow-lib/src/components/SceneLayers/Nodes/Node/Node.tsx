@@ -44,6 +44,11 @@ export const Node = memo(({ node, order }: Props) => {
     return null;
   }
 
+  // Per-node label visibility (name and description can be hidden independently)
+  const showName = Boolean(modelItem.name) && modelItem.hideName !== true;
+  const showDescription =
+    Boolean(description) && modelItem.hideDescription !== true;
+
   return (
     <Box
       sx={{
@@ -61,7 +66,7 @@ export const Node = memo(({ node, order }: Props) => {
           top: position.y - (PROJECTED_TILE_SIZE.height / 2),
         }}
       >
-        {(modelItem?.name || description) && (
+        {(showName || showDescription) && (
           <Box>
             <ExpandableLabel
               maxWidth={250}
@@ -69,13 +74,12 @@ export const Node = memo(({ node, order }: Props) => {
               labelHeight={node.labelHeight ?? DEFAULT_LABEL_HEIGHT}
             >
               <Stack spacing={1}>
-                {modelItem.name && (
+                {showName && (
                   <Typography fontWeight={600}>{modelItem.name}</Typography>
                 )}
-                {modelItem.description &&
-                  modelItem.description !== MARKDOWN_EMPTY_VALUE && (
-                    <RichTextEditor value={modelItem.description} readOnly />
-                  )}
+                {showDescription && (
+                  <RichTextEditor value={modelItem.description} readOnly />
+                )}
               </Stack>
             </ExpandableLabel>
           </Box>

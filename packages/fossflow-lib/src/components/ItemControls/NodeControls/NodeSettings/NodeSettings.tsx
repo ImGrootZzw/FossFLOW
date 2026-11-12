@@ -1,5 +1,12 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { Slider, Box, TextField } from '@mui/material';
+import {
+  Slider,
+  Box,
+  TextField,
+  Switch,
+  FormControlLabel,
+  Stack
+} from '@mui/material';
 import { ModelItem, ViewItem } from 'src/types';
 import { RichTextEditor } from 'src/components/RichTextEditor/RichTextEditor';
 import { useModelItem } from 'src/hooks/useModelItem';
@@ -95,7 +102,39 @@ export const NodeSettings = ({
           }}
         />
       </Section>
-      {modelItem.name && (
+      <Section title="Label visibility">
+        <Stack>
+          <FormControlLabel
+            control={
+              <Switch
+                size="small"
+                checked={modelItem.hideName !== true}
+                onChange={(e) => {
+                  return onModelItemUpdated({ hideName: !e.target.checked });
+                }}
+              />
+            }
+            label="Show name"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                size="small"
+                checked={modelItem.hideDescription !== true}
+                onChange={(e) => {
+                  return onModelItemUpdated({
+                    hideDescription: !e.target.checked
+                  });
+                }}
+              />
+            }
+            label="Show description"
+          />
+        </Stack>
+      </Section>
+
+      {(modelItem.name && modelItem.hideName !== true) ||
+      (modelItem.description && modelItem.hideDescription !== true) ? (
         <Section title="Label height">
           <Slider
             marks
@@ -109,7 +148,7 @@ export const NodeSettings = ({
             }}
           />
         </Section>
-      )}
+      ) : null}
 
       <Section title="Icon size">
         <Slider
