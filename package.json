@@ -22,7 +22,9 @@
     "docker:build": "docker build -t fossflow:local .",
     "docker:run": "docker compose -f compose.dev.yml up",
     "update-version": "node scripts/update-version.js",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "sync": "node scripts/sync.mjs",
+    "mcp:start": "node packages/fossflow-mcp/index.js"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",

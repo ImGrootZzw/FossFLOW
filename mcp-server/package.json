@@ -1,0 +1,14 @@
+{
+  "name": "fossflow-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MCP server that turns structured topology descriptions into FossFLOW diagram files",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "fossflow-mcp": "index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
